@@ -13,10 +13,10 @@ public class CellValue
     ///<summary>
     /// Крестик
     ///</summary>
-    static public string CROSS => "X";
+    static public string CROSS => "✘";
 
     ///<summary>
     /// Нолик
     ///</summary>
-    static public string ZERO => "O"; 
+    static public string ZERO => "❉"; 
 }

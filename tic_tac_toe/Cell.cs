@@ -13,17 +13,17 @@ public class Cell
     ///<summary>
     /// Значение ячейки
     ///</summary>
-    public string Value {get; set;}
+    public string Sign {get; set;}
 
     ///<summary>
     /// Пустая?
     ///</summary>
-    public bool IsEmpty => Value == CellValue.EMPTY;
+    public bool IsEmpty => Sign == CellValue.EMPTY;
     
     ///<summary>
     /// Описание
     ///</summary>
-    public string Description => IsEmpty ? Index.ToString() : " ";
+    public string AvailableIndex => IsEmpty ? Index.ToString() : " ";
     
     ///<summary>
     /// Создать
@@ -31,6 +31,6 @@ public class Cell
     public Cell()
     {
         Index = 0;
-        Value = CellValue.EMPTY;
+        Sign = CellValue.EMPTY;
     }
 }

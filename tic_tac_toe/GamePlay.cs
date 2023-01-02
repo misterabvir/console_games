@@ -17,27 +17,55 @@ public class GamePlay
     ///<summary>
     /// Новая игра
     ///</summary>
-    public void NewGame()
+    private void NewGame()
     {
         _field = new Field();
         _currentPlayer = FirstPlayer;
-        do{
-            do
+        while(true)
+        {            
+            DoMove();
+            if (GameOver)
             {
                 Console.Clear();
-                Console.WriteLine($"Player \'{_currentPlayer.Sign}\' move next");
-                Console.WriteLine(_field);
-                Console.Write("Select Index:");
-                if(int.TryParse(Console.ReadLine(), out int input) && input >= 0 && input < Field.AmountOfCells && _field.CanSign(input))
+                if(_field.IsComplete)
                 {
-                    _field.SetValue(input, _currentPlayer.Sign);                
-                    break;   
+                    Console.WriteLine($"Player \'{_currentPlayer.Sign}\' is winner");
+                    _currentPlayer.SetWin();
                 }
-                continue;
-            } while (true);
-            _currentPlayer = NextPlayer;
-        }while(!GameOver);
+                else 
+                    Console.WriteLine($"It's draw!");
+                
+                Console.WriteLine(_field);
+                break;
+            }
+            else
+                _currentPlayer = NextPlayer;
+        }
     }
 
+    private void DoMove()
+    {
+        while(true)
+        {
+            Console.Clear();
+            Console.WriteLine($"Player \'{_currentPlayer.Sign}\' move next");
+            Console.WriteLine(_field);
+            Console.Write("Select Index:");
+            if(int.TryParse(Console.ReadLine(), out int input) && input >= 0 && input < Field.AmountOfCells && _field.CanSign(input))
+            {
+                _field.SetValue(input, _currentPlayer.Sign);                
+                break;   
+            }
+        }
+    }
 
+    public void StartGame()
+    {
+        do
+        {
+            NewGame();
+            Console.WriteLine($"SCORE: {_player1.Sign} {_player1.Score} : {_player2.Score} {_player2.Sign}");
+            Console.WriteLine("Do you wanna play again?");
+        } while (Console.ReadLine()?.ToUpper() == "Y");
+    }
 }
