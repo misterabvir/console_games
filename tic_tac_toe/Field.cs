@@ -25,14 +25,14 @@ public class Field
                                 IsLine(_cells[6],_cells[4],_cells[2]);
 
     private bool IsLine(Cell cell1, Cell cell2, Cell cell3) => !cell1.IsEmpty && !cell2.IsEmpty && !cell3.IsEmpty
-                                                            && cell1.Value == cell2.Value 
-                                                            && cell1.Value == cell3.Value; 
+                                                            && cell1.Sign == cell2.Sign 
+                                                            && cell1.Sign == cell3.Sign; 
 
 
     ///<summary>
     /// Поле заполнено?
     ///</summary>
-    public bool Full => (_cells.Where(w => w.Value == CellValue.EMPTY).Count() == 0);
+    public bool Full => (_cells.Where(w => w.Sign == CellValue.EMPTY).Count() == 0);
 
     private Cell [] _cells = new Cell[AmountOfCells];
 
@@ -49,7 +49,7 @@ public class Field
         _cells = new Cell[AmountOfCells];
         for (int i = 0; i < _cells.Length; i++)
         {
-            _cells[i] = new Cell(){Index=i, Value = CellValue.EMPTY};
+            _cells[i] = new Cell(){Index=i, Sign = CellValue.EMPTY};
         }
     }
 
@@ -58,7 +58,7 @@ public class Field
     ///</summary>
     public void SetValue(int index, string sign)
     { 
-        _cells[index].Value = sign;
+        _cells[index].Sign = sign;
     }
     
     ///<summary>
@@ -76,10 +76,10 @@ public class Field
 
         for (int i = 0; i < _cells.Length; i += amountCellsInline)
         {
-            str+= ($" {(_cells[i].Value)} | {(_cells[i + 1].Value)} | {(_cells[i + 2].Value)} \t\t");
-            str+= ($" {(_cells[i].Description)} | {(_cells[i + 1].Description)} | {(_cells[i + 2].Description)}");            
+            str += ($" {(_cells[i].Sign)} | {(_cells[i + 1].Sign)} | {(_cells[i + 2].Sign)} \t");
+            str += ($" {(_cells[i].AvailableIndex)} | {(_cells[i + 1].AvailableIndex)} | {(_cells[i + 2].AvailableIndex)}");            
             if(i < (_cells.Length - amountCellsInline))
-                str+= ("\n---|---|---\t\t---|---|---\n");
+                str+= ("\n---|---|---\t---|---|---\n");
         }
         return str;
     }

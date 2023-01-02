@@ -31,12 +31,4 @@ public class Player
     { 
         Score++;
     }
-
-    ///<summary>
-    /// Сбросить счет
-    ///</summary>   
-    public void Reset()
-    { 
-        Score = 0;
-    }
 }
