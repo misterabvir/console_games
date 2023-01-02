@@ -10,64 +10,50 @@ public class GamePlay
     ///</summary>
     public void GameStart()
     {
-        do{
+        HumanPlayer hPlayer = new HumanPlayer();
+        AIPlayer aPlayer = new AIPlayer();
+        do{            
             Deck deck = new Deck();
             deck.Shuffle();
-
-            int playerScore = PlayerTurn(deck);
             
-            if(playerScore > Rules.GAME_TARGET)         Console.WriteLine(Messages.LOSE);
-            else if(playerScore == Rules.GAME_TARGET)   Console.WriteLine(Messages.WIN);
+            int playerScore = hPlayer.Playing(deck);
+            
+            if(playerScore > Rules.GAME_TARGET)         
+            {
+                Console.WriteLine(Messages.LOSE); 
+                hPlayer.Money -= 50; 
+                aPlayer.Money += 50;
+            }
+            else if(playerScore == Rules.GAME_TARGET)
+            {
+                Console.WriteLine(Messages.WIN); 
+                hPlayer.Money += 50; 
+                aPlayer.Money -= 50;
+            }
             else
             {
-                int aiScore = AITurn(deck, playerScore);
+                int aiScore = aPlayer.Playing(deck, playerScore);
                 
-                if(aiScore > Rules.GAME_TARGET)         Console.WriteLine(Messages.WIN);
-                else if (aiScore == playerScore)        Console.WriteLine(Messages.DRAW);
-                else                                    Console.WriteLine(Messages.LOSE);
+                if(aiScore > Rules.GAME_TARGET)
+                {
+                    Console.WriteLine(Messages.WIN); 
+                    hPlayer.Money += 50; 
+                    aPlayer.Money -= 50;
+                }
+                else if (aiScore == playerScore)        {Console.WriteLine(Messages.DRAW);}
+                else
+                {
+                    Console.WriteLine(Messages.LOSE); 
+                    hPlayer.Money -= 50; 
+                    aPlayer.Money += 50;
+                }
             }
+
+            Console.WriteLine($"GAME SCORE");
+            Console.WriteLine($"HUMAN {hPlayer.Money}$ : {aPlayer.Money}$ AI");
             Console.WriteLine(Messages.AGAIN);
         }while(Console.ReadLine()?.ToUpper() == Messages.YES);
 
         Console.WriteLine(Messages.BYE);
-    }
-
-    ///<summary>
-    /// Играет игрок
-    ///</summary>
-    private int PlayerTurn(Deck deck)
-    {
-        Hand playerHand = new Hand();
-        playerHand.AddCard(deck.GetCard());
-        
-        do
-        {
-            Console.Clear();
-            playerHand.AddCard(deck.GetCard());
-            Console.WriteLine($"{Messages.PLAYERHAND} {playerHand}");
-
-            if(playerHand.Cost() > Rules.GAME_TARGET)
-                break;
-
-            Console.WriteLine(Messages.CARD);
-        } while (Console.ReadLine()?.ToUpper() == Messages.YES);
-        
-        return playerHand.Cost();
-    }
-
-    ///<summary>
-    /// Играет AI
-    ///</summary>
-    private int AITurn(Deck deck, int min)
-    {
-        Hand aiHand = new Hand();
-        aiHand.AddCard(deck.GetCard());
-        do
-        {
-            aiHand.AddCard(deck.GetCard());
-        } while (aiHand.Cost() < min);
-        
-        Console.WriteLine($"{Messages.AIHAND} {aiHand}");
-        return aiHand.Cost();
     }
 }
