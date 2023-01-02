@@ -1,5 +1,8 @@
 namespace black_jack;
 
+///<summary>
+/// Колода
+///</summary>
 public class Deck
 {
     private Card[] _cards;
@@ -8,6 +11,9 @@ public class Deck
     private int _amountValues => 13; 
     private int _pointer = 0;
 
+    ///<summary>
+    /// Создать колоду
+    ///</summary>
     public Deck()
     {
         _cards = new Card[_amountCards];
@@ -21,6 +27,9 @@ public class Deck
                 _cards[suitIndex * _amountValues + valIndex] = new Card(suitIndex, valIndex);
     }
 
+    ///<summary>
+    /// Перемешать
+    ///</summary>
     public void Shuffle()
     {        
         for (int i = 0; i < _amountCards; i++)
@@ -33,6 +42,9 @@ public class Deck
         _pointer = 0;
     }
 
+    ///<summary>
+    /// Получить верхнюю карту с колоды
+    ///</summary>
     public Card GetCard()
     {
         Card card = _cards[_pointer];
