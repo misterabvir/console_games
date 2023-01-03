@@ -8,7 +8,9 @@ public class Field
     ///<summary>
     /// Количество ячеек поля
     ///</summary>
-    static public int AmountOfCells = 9;
+    public static int AmountOfCells => 9;
+
+    private Cell [] _cells = new Cell[AmountOfCells];
     
     ///<summary>
     /// Есть ли выигрыш?
@@ -34,17 +36,11 @@ public class Field
     ///</summary>
     public bool Full => (_cells.Where(w => w.Sign == CellValue.EMPTY).Count() == 0);
 
-    private Cell [] _cells = new Cell[AmountOfCells];
 
     ///<summary>
     /// Создать поле
     ///</summary>
     public Field()
-    {
-        Clear();
-    }
-
-    private void Clear()
     {
         _cells = new Cell[AmountOfCells];
         for (int i = 0; i < _cells.Length; i++)
@@ -76,10 +72,16 @@ public class Field
 
         for (int i = 0; i < _cells.Length; i += amountCellsInline)
         {
-            str += ($" {(_cells[i].Sign)} | {(_cells[i + 1].Sign)} | {(_cells[i + 2].Sign)} \t");
-            str += ($" {(_cells[i].AvailableIndex)} | {(_cells[i + 1].AvailableIndex)} | {(_cells[i + 2].AvailableIndex)}");            
+            str += string.Format(Messages.SIGN_LINE, 
+                            _cells[i    ].Sign, 
+                            _cells[i + 1].Sign, 
+                            _cells[i + 2].Sign);
+            str += string.Format(Messages.AVAILABLE_LINE, 
+                            _cells[i    ].AvailableIndex, 
+                            _cells[i + 1].AvailableIndex, 
+                            _cells[i + 2].AvailableIndex);            
             if(i < (_cells.Length - amountCellsInline))
-                str+= ("\n---|---|---\t---|---|---\n");
+                str += Messages.FIELD_LINE;
         }
         return str;
     }

@@ -7,51 +7,58 @@ public class GamePlay
 {
     private Player _player1 = new Player(CellValue.CROSS); 
     private Player _player2 = new Player(CellValue.ZERO); 
-    private Player _currentPlayer = new Player(" "); 
     private Field _field = new Field();
-    private Random _rand = new Random();
-    private Player FirstPlayer => _rand.Next(0,1) == 0 ? _player1 : _player2;
+    private Print _print = new Print();
+    private Player _currentPlayer; 
     private Player NextPlayer => _currentPlayer == _player2 ? _player1 : _player2;    
     private bool GameOver => _field.IsComplete || _field.Full;
-    
+
     ///<summary>
-    /// Новая игра
+    /// Начало игры
     ///</summary>
+    public void StartGame()
+    {
+        do
+        {
+            NewGame();
+            ShowResultBlock();
+        } while (Console.ReadLine()?.ToUpper() == Messages.CONFIRM);
+    }
+
     private void NewGame()
     {
         _field = new Field();
-        _currentPlayer = FirstPlayer;
+        _currentPlayer = _player1;
         while(true)
         {            
             DoMove();
-            if (GameOver)
+            
+            if (!GameOver)
+                _currentPlayer = NextPlayer;
+            else
             {
-                Console.Clear();
+                _print.Clear();
                 if(_field.IsComplete)
                 {
-                    Console.WriteLine($"Player \'{_currentPlayer.Sign}\' is winner");
+                    _print.WriteLine(String.Format(Messages.RESULT_WIN, _currentPlayer.Sign), Style.INFO);
                     _currentPlayer.SetWin();
                 }
                 else 
-                    Console.WriteLine($"It's draw!");
-                
-                Console.WriteLine(_field);
+                    _print.WriteLine(Messages.RESULT_DRAW, Style.INFO);              
                 break;
-            }
-            else
-                _currentPlayer = NextPlayer;
+            }                
         }
     }
 
     private void DoMove()
     {
         while(true)
-        {
-            Console.Clear();
-            Console.WriteLine($"Player \'{_currentPlayer.Sign}\' move next");
-            Console.WriteLine(_field);
-            Console.Write("Select Index:");
-            if(int.TryParse(Console.ReadLine(), out int input) && input >= 0 && input < Field.AmountOfCells && _field.CanSign(input))
+        {            
+            ShowMoveBlock();
+            if(int.TryParse(Console.ReadLine(), out int input) 
+                                && input >= 0 
+                                && input < Field.AmountOfCells 
+                                && _field.CanSign(input))
             {
                 _field.SetValue(input, _currentPlayer.Sign);                
                 break;   
@@ -59,13 +66,19 @@ public class GamePlay
         }
     }
 
-    public void StartGame()
+    private void ShowMoveBlock()
     {
-        do
-        {
-            NewGame();
-            Console.WriteLine($"SCORE: {_player1.Sign} {_player1.Score} : {_player2.Score} {_player2.Sign}");
-            Console.WriteLine("Do you wanna play again?");
-        } while (Console.ReadLine()?.ToUpper() == "Y");
+        _print.Clear();
+        _print.WriteLine(string.Format(Messages.MOVE_TURN, _currentPlayer.Sign), Style.INFO);
+        _print.WriteLine(_field.ToString(), Style.FIELD);
+        _print.WriteLine(Messages.INPUT_NUMBER, Style.SIMPLE);
+    }
+
+    private void ShowResultBlock()
+    {
+        _print.WriteLine(_field.ToString(), Style.FIELD);
+        _print.WriteLine(string.Format("SCORE: {0} {1} : {2} {3}",
+                    _player1.Sign, _player1.Score, _player2.Score, _player2.Sign), Style.INFO);
+        _print.WriteLine(Messages.PLAY_AGAIN, Style.SIMPLE);
     }
 }
