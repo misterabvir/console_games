@@ -38,12 +38,12 @@ public class Messages
     static public string PLAYERHAND => "Your hand:";
 
     ///<summary>
-    /// Сообщение: "Прощание"
-    ///</summary>
-    static public string BYE => "Bye!";
-
-    ///<summary>
     /// Сообщение: "Подтверждение"
     ///</summary>
     static public string YES => "Y";  
+    
+    ///<summary>
+    /// Сообщение: "Подтверждение"
+    ///</summary>
+    static public string SCORE => "SCORE HUMAN {0}$ : {1}$ AI";  
 }
