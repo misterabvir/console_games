@@ -9,7 +9,7 @@ public class GamePlay
     private Player _player2 = new Player(CellValue.ZERO); 
     private Field _field = new Field();
     private Print _print = new Print();
-    private Player _currentPlayer; 
+    private Player _currentPlayer = new Player(CellValue.EMPTY); 
     private Player NextPlayer => _currentPlayer == _player2 ? _player1 : _player2;    
     private bool GameOver => _field.IsComplete || _field.Full;
 
@@ -77,8 +77,8 @@ public class GamePlay
     private void ShowResultBlock()
     {
         _print.WriteLine(_field.ToString(), Style.FIELD);
-        _print.WriteLine(string.Format("SCORE: {0} {1} : {2} {3}",
-                    _player1.Sign, _player1.Score, _player2.Score, _player2.Sign), Style.INFO);
+        _print.WriteLine(string.Format(Messages.SCORE,
+            _player1.Sign, _player1.Score, _player2.Score, _player2.Sign), Style.INFO);
         _print.WriteLine(Messages.PLAY_AGAIN, Style.SIMPLE);
     }
 }
