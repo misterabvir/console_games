@@ -2,6 +2,7 @@ namespace black_jack;
 
 public class AIPlayer : Player
 {
+    private Print _print = new Print();
     public override int Playing(Deck deck, int min = 0)
     {
         _hand = new Hand();
@@ -11,7 +12,7 @@ public class AIPlayer : Player
             _hand.AddCard(deck.GetCard());
         } while (_hand.Cost() < min);
         
-        Console.WriteLine($"{Messages.AIHAND} {_hand}");
+        _print.WriteLine(String.Format("{0} {1}", Messages.AIHAND, _hand), Style.INFO);
         return _hand.Cost();
     }
 }
