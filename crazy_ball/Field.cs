@@ -1,27 +1,30 @@
 using System.Text;
 namespace crazy_ball;
 
-public class Field : Game
-{
-    const int START_Position_LEFT = 5;
-    const int START_Position_TOP = 5;
-    
-    const int HIGH_SIZE = 21;
-    const int LENGTH_SIZE = 70;
-    
-    
-    public override void BeforeUpdate()
+public class Field : GameElement
+{     
+    public Field()
     {
-        for (int y = 0; y < HIGH_SIZE; y++)
+        _left = Settings.FieldCoords.Left;
+        _top = Settings.FieldCoords.Top;
+    }
+
+    public override void Begin()
+    {
+        for (int y = 0; y < Settings.FieldHigh; y++)
         {
-            for (int x = 0; x < LENGTH_SIZE; x++)
+            for (int x = 0; x < Settings.FieldLength; x++)
             {                
-                if(x <=1 || y == 0 || x >= LENGTH_SIZE - 2 || y == HIGH_SIZE - 1)
+                if(x == 0 || y == 0 || x >= Settings.FieldLength - Settings.FieldBorderSize || y == Settings.FieldHigh - Settings.FieldBorderSize)
                     {
-                        Console.SetCursorPosition(x + START_Position_LEFT, y + START_Position_TOP);
+                        Console.SetCursorPosition(x + _left, y + _top);
                         Console.Write('█');
                     }
             }
         }
     }
+    
+    public override void Update(){}
+    public override void Draw(){ }
+    public override void End(){}
 }

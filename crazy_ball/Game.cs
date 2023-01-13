@@ -2,28 +2,49 @@ namespace crazy_ball;
 
 public class Game
 {
-    private bool _work = true;
+  
+    private Field _field = new Field();
+    private Title _title = new Title();
+    private Platform _platform = new Platform();
+    private GameStatus _status = new GameStatus();   
+    private GameBehavior _behavior = GameBehavior.Behavior;
+
     public Game()
     {
-        Console.Clear();
-        BeforeUpdate();
-        StartUpdate();
+        PreLoad();
+        
+        Load();
+
+        Start();
+
+        Stop();       
     }
 
-    public virtual void BeforeUpdate(){}
-    public virtual void Update(){}
-    public virtual void AfterUpdate(){}
-
-    private async Task StartUpdate()
+    private void PreLoad()
     {
-        await Task.Run(() =>
-        {
-            while (_work)
-            {
-                Update();                
-                Task.Delay(100).Wait();
-            }
-            AfterUpdate();
-        });
+        Console.CursorVisible = false;
+        Console.Clear(); 
+    }
+
+    private void Load()
+    {
+        _behavior.Add(_field);
+        _behavior.Add(_title);
+        _behavior.Add(_platform);
+        _behavior.Add(_status);
+    }
+
+    private void Start()
+    {
+        _behavior.Start();
+        InputTracking _input = new InputTracking();
+        _input.Track();
+    }
+    
+    private void Stop()
+    {
+        GameBehavior.Behavior.Stop();
+        Console.SetCursorPosition(Settings.CursorEndGameCoords.Left, Settings.CursorEndGameCoords.Top);
+        Console.CursorVisible = true;
     }
 }
