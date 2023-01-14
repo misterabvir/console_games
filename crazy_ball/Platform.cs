@@ -3,10 +3,10 @@ namespace crazy_ball;
 public class Platform : GameElement
 {
     
-    static public Direction Direction{get; set;} = Direction.RIGHT;
+    public Direction Direction{get; set;} = Direction.RIGHT;
     
-    static private int _speed = Settings.PlatformDefaultSpeed;
-    static public int Speed
+    private int _speed = Settings.PlatformDefaultSpeed;
+    public int Speed
     {
         get {return _speed;}
         set
@@ -57,4 +57,7 @@ public class Platform : GameElement
     }
 
     public override void End(){}
+
+    public bool IsUnderTheBall(Ball ball) => ball.Y == 19 && ball.X >= _currentPosition && ball.X <= (_currentPosition + _length);
+    
 }

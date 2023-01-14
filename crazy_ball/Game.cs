@@ -2,14 +2,30 @@ namespace crazy_ball;
 
 public class Game
 {
-  
+    public Platform Platform =>_platform;
+    public Ball Ball =>_ball;
+    
     private Field _field = new Field();
     private Title _title = new Title();
     private Platform _platform = new Platform();
-    private GameStatus _status = new GameStatus();   
+    private GameStatus _status = new GameStatus();  
+    private Ball _ball = new Ball();   
     private GameBehavior _behavior = GameBehavior.Behavior;
 
-    public Game()
+    static private Game? _entity;
+    static public Game Entity
+    {
+        get
+        {
+            if(_entity == null)
+                _entity = new Game();
+            return _entity;
+        }
+    }
+
+    private Game(){}
+
+    public void NewGame()
     {
         PreLoad();
         
@@ -17,8 +33,9 @@ public class Game
 
         Start();
 
-        Stop();       
+        Stop(); 
     }
+
 
     private void PreLoad()
     {
@@ -32,6 +49,7 @@ public class Game
         _behavior.Add(_title);
         _behavior.Add(_platform);
         _behavior.Add(_status);
+        _behavior.Add(_ball);
     }
 
     private void Start()
