@@ -4,6 +4,7 @@ public class Program
 {
     static void Main()
     {
-        Game game = new Game();        
+        Game game = Game.Entity;  
+        game.NewGame();     
     }       
 }

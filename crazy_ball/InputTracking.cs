@@ -11,19 +11,19 @@ public class InputTracking
             switch (key.Key)
             {
                 case ConsoleKey.UpArrow:
-                    Platform.Speed++;                  
+                    Game.Entity.Platform.Speed++;                  
                     break;
                 
                 case ConsoleKey.DownArrow: 
-                    Platform.Speed--;                   
+                    Game.Entity.Platform.Speed--;                   
                     break;
                 
                 case ConsoleKey.RightArrow:
-                    Platform.Direction = Direction.RIGHT;
+                    Game.Entity.Platform.Direction = Direction.RIGHT;
                     break;
 
                 case ConsoleKey.LeftArrow:
-                    Platform.Direction = Direction.LEFT;
+                    Game.Entity.Platform.Direction = Direction.LEFT;
                     break;
 
                 case ConsoleKey.Escape:
