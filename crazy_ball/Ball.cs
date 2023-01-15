@@ -53,8 +53,8 @@ public class Ball : GameElement
         if(Game.Entity.Platform.IsUnderTheBall(this) == true)
         { 
             _ySpeed *= -1;
-            if(Game.Entity.Platform.Direction == Direction.RIGHT) XSpeed++; 
-            if(Game.Entity.Platform.Direction == Direction.LEFT) XSpeed--; 
+            if(Game.Entity.Platform.MoveRight) XSpeed++; 
+            if(Game.Entity.Platform.MoveLeft) XSpeed--; 
         }
 
         _xLast = _left;

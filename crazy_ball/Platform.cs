@@ -2,18 +2,37 @@ namespace crazy_ball;
 
 public class Platform : GameElement
 {
+    private bool _moveRight;
+    private bool _moveLeft;
     
-    public Direction Direction{get; set;} = Direction.RIGHT;
-    
-    private int _speed = Settings.PlatformDefaultSpeed;
-    public int Speed
+    public bool MoveRight
     {
-        get {return _speed;}
+        get
+        {
+            return _moveRight;
+        }
         set
         {
-            if(value >= 1 && value <= Settings.PlatformMaxSpeed) _speed = value;
+            if(!value || (value && !_moveLeft)) 
+                _moveRight = value;
         }
     }
+    public bool MoveLeft
+    {
+        get
+        {
+            return _moveLeft;
+        }
+        set
+        {
+            if(!value || (value && !_moveRight)) 
+                _moveLeft = value;
+        }
+    }
+    
+
+    private int _speed = Settings.PlatformDefaultSpeed;
+
     
     private int _length = 11;
     
@@ -30,7 +49,7 @@ public class Platform : GameElement
 
     public override void Update()
     {        
-        if(Direction == Direction.RIGHT)
+        if(MoveRight)
         {           
             _currentPosition += _speed;
             if(_currentPosition >= (Settings.FieldLength - Settings.FieldBorderSize * 2 - _length))
@@ -38,7 +57,7 @@ public class Platform : GameElement
                 _currentPosition = (Settings.FieldLength - Settings.FieldBorderSize * 2 - _length);
             }
         }        
-        if(Direction == Direction.LEFT)
+        if(MoveLeft)
         {
             _currentPosition -= _speed;
             if(_currentPosition < 0)
@@ -46,6 +65,8 @@ public class Platform : GameElement
                 _currentPosition = 0;
             }
         }
+
+        MoveLeft = MoveRight = false;
     }
 
     public override void Draw()
