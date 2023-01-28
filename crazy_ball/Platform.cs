@@ -79,6 +79,7 @@ public class Platform : GameElement
 
     public override void End(){}
 
-    public bool IsUnderTheBall(Ball ball) => ball.Y == 19 && ball.X >= _currentPosition && ball.X <= (_currentPosition + _length);
+    public bool IsUnderTheBall(Ball ball) => ((ball.Y == 19 || ball.Y == 21) && ball.X >= _currentPosition && ball.X <= (_currentPosition + _length))
+                                                ||((ball.Y == 20) && (ball.X+1 == _currentPosition || ball.X - 1 == (_currentPosition + _length)));
     
 }
