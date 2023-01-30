@@ -17,26 +17,23 @@ public class GameBehavior
     }
     private GameBehavior(){}
 
-    public async Task Start()
+    public void Start()
     {               
         
         OnBegin();
-        await Task.Run(() => {
-            while(true)
+        new Thread(() =>
             {
-                OnUpdate();
-                OnDrawUpdate();
+                while(true)
+                {
+                    OnUpdate();
+                    OnDrawUpdate();
 
-                Thread.Sleep(100);
-            }
-        }, cts.Token);       
+                    Thread.Sleep(Settings.SpeedUpdate);
+                }
+            }).Start();
     }
 
-    public void Stop()
-    {
-        cts.Cancel();
-        OnEnd();
-    }
+
 
     private void OnBegin()
     {

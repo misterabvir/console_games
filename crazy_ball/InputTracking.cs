@@ -4,33 +4,17 @@ public class InputTracking
 {
     public void Track()
     {
-        ConsoleKeyInfo key = new ConsoleKeyInfo();
-        while (!Console.KeyAvailable && key.Key != ConsoleKey.Escape)
+        var key = Console.ReadKey(true).Key;
+        
+        
+        while (true)
         {
-            key = Console.ReadKey(true);
-            switch (key.Key)
-            {
-                case ConsoleKey.UpArrow:
-                    Game.Entity.Platform.Speed++;                  
-                    break;
-                
-                case ConsoleKey.DownArrow: 
-                    Game.Entity.Platform.Speed--;                   
-                    break;
-                
-                case ConsoleKey.RightArrow:
-                    Game.Entity.Platform.Direction = Direction.RIGHT;
-                    break;
+            
+            key = Console.ReadKey(false).Key;
+            if(key == ConsoleKey.Escape) break;
+            if(key == ConsoleKey.RightArrow) Game.Entity.Platform.MoveRight();
+            if(key == ConsoleKey.LeftArrow) Game.Entity.Platform.MoveLeft();
 
-                case ConsoleKey.LeftArrow:
-                    Game.Entity.Platform.Direction = Direction.LEFT;
-                    break;
-
-                case ConsoleKey.Escape:
-                    break;
-
-                default: break;
-            }
         }
     }
 }
