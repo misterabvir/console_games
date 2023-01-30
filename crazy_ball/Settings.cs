@@ -2,6 +2,8 @@ namespace crazy_ball;
 
 public class Settings
 {
+    
+    static public int SpeedUpdate => 50;
     static public Coords TitleCoords => new Coords(){Left = 0, Top = 0};
     static public Coords BallStartCoords => new Coords(){Left = 35, Top = 18};
     static public Coords FieldCoords => new Coords(){Left = 0, Top = 2};

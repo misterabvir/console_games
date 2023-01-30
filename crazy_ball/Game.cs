@@ -45,11 +45,11 @@ public class Game
 
     private void Load()
     {
-        _behavior.Add(_field);
         _behavior.Add(_title);
-        _behavior.Add(_platform);
-        _behavior.Add(_status);
         _behavior.Add(_ball);
+        _behavior.Add(_platform);
+        _behavior.Add(_field);
+        _behavior.Add(_status);
     }
 
     private void Start()
@@ -61,7 +61,7 @@ public class Game
     
     private void Stop()
     {
-        GameBehavior.Behavior.Stop();
+        // GameBehavior.Behavior.Stop();
         Console.SetCursorPosition(Settings.CursorEndGameCoords.Left, Settings.CursorEndGameCoords.Top);
         Console.CursorVisible = true;
     }

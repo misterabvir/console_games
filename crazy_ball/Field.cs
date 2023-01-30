@@ -11,20 +11,24 @@ public class Field : GameElement
 
     public override void Begin()
     {
+
+    }
+    
+    public override void Update()
+    {
         for (int y = 0; y < Settings.FieldHigh; y++)
         {
             for (int x = 0; x < Settings.FieldLength; x++)
             {                
                 if(x == 0 || y == 0 || x >= Settings.FieldLength - Settings.FieldBorderSize || y == Settings.FieldHigh - Settings.FieldBorderSize)
-                    {
-                        Console.SetCursorPosition(x + _left, y + _top);
-                        Console.Write('█');
-                    }
+                {
+                    Console.SetCursorPosition(x + _left, y + _top);
+                    Console.Write('█');
+                }
             }
         }
+
     }
-    
-    public override void Update(){}
     public override void Draw(){ }
     public override void End(){}
 }

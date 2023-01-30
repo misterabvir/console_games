@@ -2,34 +2,7 @@ namespace crazy_ball;
 
 public class Platform : GameElement
 {
-    private bool _moveRight;
-    private bool _moveLeft;
-    
-    public bool MoveRight
-    {
-        get
-        {
-            return _moveRight;
-        }
-        set
-        {
-            if(!value || (value && !_moveLeft)) 
-                _moveRight = value;
-        }
-    }
-    public bool MoveLeft
-    {
-        get
-        {
-            return _moveLeft;
-        }
-        set
-        {
-            if(!value || (value && !_moveRight)) 
-                _moveLeft = value;
-        }
-    }
-    
+   
 
     private int _speed = Settings.PlatformDefaultSpeed;
 
@@ -49,24 +22,34 @@ public class Platform : GameElement
 
     public override void Update()
     {        
-        if(MoveRight)
-        {           
-            _currentPosition += _speed;
-            if(_currentPosition >= (Settings.FieldLength - Settings.FieldBorderSize * 2 - _length))
-            {
-                _currentPosition = (Settings.FieldLength - Settings.FieldBorderSize * 2 - _length);
-            }
-        }        
-        if(MoveLeft)
+    
+    }
+
+    public void MoveLeft()
+    {
+        
+        if(_currentPosition - _speed < 0)
+        {
+            _currentPosition = 0;
+        }   
+        else 
         {
             _currentPosition -= _speed;
-            if(_currentPosition < 0)
-            {
-                _currentPosition = 0;
-            }
         }
 
-        MoveLeft = MoveRight = false;
+    }
+
+    public void MoveRight()
+    {
+        
+        if(_currentPosition + _speed <= (Settings.FieldLength - Settings.FieldBorderSize * 2 - _length))
+        {
+            _currentPosition += _speed;
+        }
+        else
+        {
+            _currentPosition = (Settings.FieldLength - Settings.FieldBorderSize * 2 - _length);
+        }
     }
 
     public override void Draw()
