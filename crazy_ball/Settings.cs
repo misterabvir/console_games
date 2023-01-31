@@ -1,31 +1,23 @@
-namespace crazy_ball;
+namespace CrazyBall;
 
 public class Settings
 {
+    static public int SpeedGame => 10;
+
+    static public (int width, int height) BorderSize => (136, 40); 
+    static public (int left, int top) BorderPosition => (0, 0);
+
+
+    static public (int width, int height) PlatformSize => (16, 1);
+    static public (int left, int top) PlatformPosition => (58, 34);
+
+    static public (int left, int top) BallPosition => (66, 30);   
+    static public (int x, int y) BallSpeed => (2, -1);   
     
-    static public int SpeedUpdate => 50;
-    static public Coords TitleCoords => new Coords(){Left = 0, Top = 0};
-    static public Coords BallStartCoords => new Coords(){Left = 35, Top = 18};
-    static public Coords FieldCoords => new Coords(){Left = 0, Top = 2};
-    static public Coords KeysCoords => new Coords(){Left = 0, Top = 23};    
-    static public Coords PlatformCoords => new Coords(){Left = 1, Top = 20};
-    static public Coords StatusCoords => new Coords(){Left = 0, Top = 23};
-    static public Coords CursorEndGameCoords => new Coords(){Left = 0, Top = 26};
+    static public (int Left, int Top) BlocksPosition => (4, 2);
 
-    static public int BallSpeedVertical => -1;
-    static public int BallSpeedHorizontal => 1;
+    static public string FillSymbol => "█";    
+    static public string EmptySymbol => " ";
+    static public string BallSymbol => "☻";
 
-    static public int FieldLength => 70;
-    static public int FieldHigh => 21;
-    static public int FieldBorderSize => 1;
-
-    static public int GameAreaLeft => 1;
-    static public int GameAreaRight => 69;
-    static public int GameAreaTop => 3;
-    static public int GameAreaBottom => 22;
-
-
-    static public int PlatformStart => FieldLength / 2;
-    static public int PlatformDefaultSpeed => 2;
-    static public int PlatformMaxSpeed => 10;
 }
