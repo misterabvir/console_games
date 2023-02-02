@@ -2,13 +2,14 @@ namespace TetrisGame;
 
 public class GameComponent
 {
-    protected (int height, int width) _size;
-    protected (int left, int top) _position;
-    protected string[] _symbol = {""};
+    protected (int height, int width) size;
+    protected (int left, int top) position;
+    protected string[] symbol = {""};
    
-    public virtual void Init(){}   
+    ///<summary>Initialization before start loop</summary>
+    public virtual void Init(){}      
+    ///<summary>Loop Update</summary>
     public virtual void Update(){}
-    public virtual void Draw(){}
-
-    
+    ///<summary>Loop Draw</summary>
+    public virtual void Draw(){}   
 }

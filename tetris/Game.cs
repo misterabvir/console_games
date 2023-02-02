@@ -2,14 +2,15 @@ namespace TetrisGame;
 
 public class Game
 {
-    private List<GameComponent> _components = new List<GameComponent>();
+    private List<GameComponent> components = new List<GameComponent>();
        
     public Game()
     {
-        _components.Add(Border.Instance);
-        _components.Add(Field.Instance);
-        _components.Add(Shape.Instance);
-        _components.Add(State.Instance);
+        components.Add(Border.Instance);
+        components.Add(Field.Instance);
+        components.Add(Shape.Instance);
+        components.Add(CommandStatus.Instance);
+        components.Add(ScoreSystem.Instance);
     }
 
     public void Start()
@@ -28,9 +29,8 @@ public class Game
     }
 
     public void Init()
-    {
-        
-        foreach (var item in _components)
+    {       
+        foreach (var item in components)
         {
             item.Init();        
         }
@@ -38,7 +38,7 @@ public class Game
 
     public void Update()
     {
-        foreach (var item in _components)
+        foreach (var item in components)
         {
             item.Update();           
             item.Draw();        
