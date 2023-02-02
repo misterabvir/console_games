@@ -2,14 +2,14 @@ namespace CrazyBall
 {
     public class Game
     {
-        private List<GameComponent> _components = new List<GameComponent>();
+        private List<GameComponent> components = new List<GameComponent>();
 
         public Game()
         {
-           _components.Add(Border.Instance);
-           _components.Add(Platform.Instance);
-           _components.Add(Ball.Instance);
-           _components.Add(Blocks.Instance);
+           components.Add(Border.Instance);
+           components.Add(Platform.Instance);
+           components.Add(Ball.Instance);
+           components.Add(Blocks.Instance);
         }
 
         public void Start()
@@ -28,14 +28,14 @@ namespace CrazyBall
 
         private void Init()
         {
-            foreach (var item in _components)
+            foreach (var item in components)
             {
                 item.Init();
             }
         }
         private void Update()
         {
-            foreach (var item in _components)
+            foreach (var item in components)
             {
                 item.Update();
                 item.Draw();

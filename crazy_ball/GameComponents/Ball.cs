@@ -2,40 +2,50 @@ namespace CrazyBall
 {
     public class Ball : Singleton<Ball>
     {
-   
-        (int left, int top) _position = Settings.BallPosition;
-        (int left, int top) _newPosition = Settings.BallPosition;
-        (int x, int y) _speed = Settings.BallSpeed;
+        private ConsoleColor currentColor = ConsoleColor.White;
+        (int left, int top) position = Settings.BallPosition;
+        (int left, int top) newPosition = Settings.BallPosition;
+        (int x, int y) speed = Settings.BallSpeed;
+
+        public override void Init()
+        {
+            Blocks.Instance.OnCollide += CollideEvent;
+        }
+
+        private void CollideEvent(Block block, ConsoleColor color)
+        {
+            if(block!=null)
+                currentColor = color;
+        }
 
         public override void Update()
-        {
-            
-            
-            if(_position.left  +_speed.x < Settings.BorderPosition.left + 2 
-                || _position.left + _speed.x > Settings.BorderSize.width - Settings.BorderPosition.left - 3
-                || Platform.Instance.IsPlatformCollide(_position.left + _speed.x, _position.top)
-                || Blocks.Instance.IsCollide(_position.left + _speed.x, _position.top))
+        {                        
+            if(position.left  +speed.x < Settings.BorderPosition.left + 2 
+                || position.left + speed.x > Settings.BorderSize.width - Settings.BorderPosition.left - 3
+                || Platform.Instance.IsPlatformCollide(position.left + speed.x, position.top)
+                || Blocks.Instance.IsCollide(position.left + speed.x, position.top))
             {
-                _speed.x *= -1;
+                speed.x *= -1;
             }
-            if(_position.top  + _speed.y < Settings.BorderPosition.top + 2 
-                || _position.top + _speed.y > Settings.BorderSize.height - Settings.BorderPosition.top - 2
-                || Platform.Instance.IsPlatformCollide(_position.left, _position.top + _speed.y)
-                || Blocks.Instance.IsCollide(_position.left, _position.top + _speed.y))
+            if(position.top  + speed.y < Settings.BorderPosition.top + 2 
+                || position.top + speed.y > Settings.BorderSize.height - Settings.BorderPosition.top - 2
+                || Platform.Instance.IsPlatformCollide(position.left, position.top + speed.y)
+                || Blocks.Instance.IsCollide(position.left, position.top + speed.y))
             {
-                _speed.y *= -1;
+                speed.y *= -1;
             }
-            _newPosition.left += _speed.x;
-            _newPosition.top  += _speed.y;
+            newPosition.left += speed.x;
+            newPosition.top  += speed.y;
         }
 
         public override void Draw()
         {
-            Console.SetCursorPosition(_position.left, _position.top);
+            Console.SetCursorPosition(position.left, position.top);
             Console.Write(Settings.EmptySymbol);
-            _position.left = _newPosition.left;
-            _position.top = _newPosition.top;
-            Console.SetCursorPosition(_position.left, _position.top);
+            position.left = newPosition.left;
+            position.top = newPosition.top;
+            Console.SetCursorPosition(position.left, position.top);
+            Console.ForegroundColor = currentColor;
             Console.Write(Settings.BallSymbol);
         }
     }

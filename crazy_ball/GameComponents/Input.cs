@@ -7,8 +7,6 @@ public class Input : Singleton<Input>
         var key = Console.ReadKey(true).Key;
         while (key != ConsoleKey.Escape)
         {
-            // Thread.Sleep(100);
-
             key = Console.ReadKey(true).Key;
 
             if (key == ConsoleKey.Escape)

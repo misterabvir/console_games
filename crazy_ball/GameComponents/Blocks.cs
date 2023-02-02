@@ -1,31 +1,35 @@
 namespace CrazyBall;
 public class Blocks : Singleton<Blocks>
 {
-  private List<Block> _blocks = new List<Block>();
-  private (int left, int top) _position = Settings.BlocksPosition;
-  private int _offset = 10;
-
+  private List<Block> blocks = new List<Block>();
+  private (int left, int top) position = Settings.BlocksPosition;
+  public delegate void Collide(Block block, ConsoleColor color);
+  public event Collide? OnCollide;
 
 
   public override void Init()
   {
-    for (int c = 0; c <= 12; c++)
+    for (int row = 0; row < Settings.CountOfBlackRows; row++)
     {
-      for (int r = 0; r < 2; r++)
+      for (int col = 0; col < Settings.CountOfBlackCols; col++)
       {
-        _blocks.Add(new Block(){ Position = ( _position.left + c * 10, _position.top + r * 3), Enabled = true});
+        blocks.Add(new Block(){ 
+          Position = (position.left + col * Settings.LengthOffsetCols, 
+                      position.top  + row * Settings.LengthOffsetRows), 
+          Enabled = true});
       }           
     }
   }
 
     
-  public bool IsCollide(int x, int y)
+  public bool IsCollide(int left, int top)
   {
-    foreach (var item in _blocks)
+    foreach (var item in blocks)
     {
-        if(item.IsCollide(x, y)) 
+        if(item.IsCollide(left, top)) 
         {
           item.Enabled = false;
+          OnCollide?.Invoke(item, item.Color);
           return true;        
         }
     }
@@ -35,7 +39,7 @@ public class Blocks : Singleton<Blocks>
 
   public override void Draw()
   {
-      foreach(var item in _blocks)
+      foreach(var item in blocks)
           item.Draw();
   }
 }
