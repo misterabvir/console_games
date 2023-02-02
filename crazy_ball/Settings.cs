@@ -20,4 +20,12 @@ public class Settings
     static public string EmptySymbol => " ";
     static public string BallSymbol => "☻";
 
+
+
+    static public int CountOfBlackRows => 3;
+    static public int CountOfBlackCols => 13;
+    static public int LengthOffsetCols => 10;
+    static public int LengthOffsetRows=> 3;
+
+
 }
