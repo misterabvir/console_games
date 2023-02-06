@@ -10,3 +10,5 @@
  - ![](images/tetris.png)
 5. **Bagels**
  - ![](images/bagels.png)
+6. **Black Jack 2**
+ - ![](images/bj2.png)
