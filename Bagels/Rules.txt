@@ -1,0 +1,6 @@
+When I say:
+    Pico   -> One digit is correct but in the wrong position
+    Fermi  -> One digit is correct but in the right position
+    Bagels -> No digit is correct
+I have thought up a number.
+You have 10 guesses to get up.
