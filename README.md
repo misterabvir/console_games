@@ -8,3 +8,5 @@
  - ![](images/ball.png)
 4. **Tetris**
  - ![](images/tetris.png)
+5. **Bagels**
+ - ![](images/bagels.png)
